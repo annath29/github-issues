@@ -14,20 +14,28 @@
   <!-- listado  -->
   <div class="mt-4 flex flex-col col-span-2">
     <h2>Issues</h2>
-    <a routerLink="/issue/123">Ir a issue 123</a>
+    @if (issuesQuery.isLoading()) {
+      <p>Cargando....</p>
+    } @else {
+      @for (issue of issuesQuery.data(); track issue.id) {
+        <!-- <pre>{{ issuesQuery.data() | json }}</pre> -->
+         <issue-item [issue]="issue" />
+      } @empty {
+        <div>No hay issues que mostrar</div>
+      }
+    }
   </div>
   <!-- labels -->
   <div>
     <h2>Labels</h2>
     @if (labelsQuery.isLoading()) {
       <p>Estamos cargando....</p>
-    }
-    @else{
+    } @else {
       <!-- <pre>{{labelsQuery.data() | json}}</pre> -->
-       @if (!labelsQuery.data()) {
-        <div>No hay  labels disponibles</div>
-       }
-       <issues-labels-selector [labels]="labelsQuery.data() ?? []"/>
+      @if (!labelsQuery.data()) {
+        <div>No hay labels disponibles</div>
+      }
+      <issues-labels-selector [labels]="labelsQuery.data() ?? []" />
     }
   </div>
 </section>
