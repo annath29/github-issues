@@ -8,3 +8,17 @@
 @else {
    <issue-comment [issue]="issueQuery.data()!" />
 }
+
+
+<!-- coments -->
+ @if (commentsQuery.isLoading()) {
+    <div>Cargando comentarios ...</div>
+ }
+ @else {
+    @for (comment of commentsQuery.data(); track comment.id) {
+        <issue-comment [issue]="comment"/>
+    }
+    @empty {
+        <div>No hay commentarios</div>
+    }
+ }
