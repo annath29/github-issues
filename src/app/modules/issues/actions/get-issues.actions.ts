@@ -1,14 +1,23 @@
-import { sleep } from "@helpers/sleep";
-import { environment } from "src/environments/environment.development";
-import { GitHubIssue, State } from "../interfaces";
+import { sleep } from '@helpers/sleep';
+import { environment } from 'src/environments/environment.development';
+import { GitHubIssue, State } from '../interfaces';
 
 const BASE_URL = `${environment.baseUrl}/issues`;
 const GITHUB_TOKEN = environment.gitHUbToken;
 
-export const getIssues = async (state: State = State.All): Promise<GitHubIssue[]> => {
+export const getIssues = async (
+  state: State = State.All,
+  labels: string[],
+): Promise<GitHubIssue[]> => {
   await sleep(1500);
+
   const params = new URLSearchParams();
-  params.append('state',state)
+  params.append('state', state);
+
+  if(labels.length >0){
+    params.append('labels',labels.join(','))
+  }
+
   try {
     const resp = await fetch(`${BASE_URL}?${params}`, {
       headers: {
