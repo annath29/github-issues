@@ -16,7 +16,7 @@ export const getIssueByNumber = async (issueNumber: string): Promise<GitHubIssue
     if (!resp) throw `¡Can't load issue ${issueNumber}!`;
 
     const issue: GitHubIssue = await resp.json();
-    console.log({ issue });
+    // console.log({ issue });
     
     return issue;
   } catch (error) {
