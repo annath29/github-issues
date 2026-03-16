@@ -39,4 +39,27 @@ describe('getIssueByNumber', () => {
     });
     expect(result).toEqual(mockIssue);
   });
+
+  it('should throw an error when response is not ok', async () => {
+    window.fetch = vi.fn().mockRejectedValue({
+      ok: false,
+      status: 404,
+      json: vi.fn(),
+    });
+
+    // const response = await getIssueByNumber(mockIssueNumber)
+    //  console.log({response})
+    // expect(getIssueByNumber(mockIssueNumber)).rejects.toBe(`Can't load issue ${mockIssueNumber}`)//warnirng por no poner el await porque es una promesa y proximas versiones puede que no soporten sinnel await
+    await expect(getIssueByNumber(mockIssueNumber)).rejects.toBe(
+      `Can't load issue ${mockIssueNumber}`,
+    );
+  });
+
+  it('should throw an error when fetch fails', async () => {
+    window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+    await expect(getIssueByNumber(mockIssueNumber)).rejects.toBe(
+      `Can't load issue ${mockIssueNumber}`,
+    );
+  });
 });
