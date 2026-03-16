@@ -7,7 +7,7 @@ import { State } from '../interfaces';
   providedIn: 'root',
 })
 export class IssuesService {
-  public selectedState = signal<State>(State.Closed);
+  public selectedState = signal<State>(State.All);
   // Set primitivo que permite almacenar valores in duplicados
   public selectedLabels = signal(new Set<string>()); //{'a','b','c'}
 
