@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
 import { getIssueByNumber, getIssueComments } from '../actions';
+import { GitHubIssue } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +33,12 @@ export class IssueService {
       queryFn: () => getIssueByNumber(issueId!),
       staleTime: 1000*60*5 //(5min) tiempo fresco : si esta dentro de un tiempo no se vulve a hacer la llamada
     });
+  }
+
+  //si ya tengo la info especifica de un issue al llamar la todos issue optimizo
+  setIssueData(issue: GitHubIssue){
+    this.queryClient.setQueryData(['issue', issue.number.toString()],issue,{
+      updatedAt: Date.now()+1000*60 ///data fresca por 1 minuto
+    })
   }
 }

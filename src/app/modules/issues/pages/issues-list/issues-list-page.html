@@ -5,9 +5,19 @@
   <div class="col-span-3 flex flex-col">
     <!-- /botones para controlar el estado -->
     <div class="flex gap-2">
-      <button class="btn active">All</button>
-      <button class="btn">Open</button>
-      <button class="btn">Closed</button>
+      <button [class.active]="currentState() == 'all'" class="btn" (click)="onChangeState('all')">
+        All
+      </button>
+      <button [class.active]="currentState() == 'open'" class="btn" (click)="onChangeState('open')">
+        Open
+      </button>
+      <button
+        [class.active]="currentState() == 'closed'"
+        class="btn"
+        (click)="onChangeState('closed')"
+      >
+        Closed
+      </button>
     </div>
   </div>
 
@@ -19,7 +29,7 @@
     } @else {
       @for (issue of issuesQuery.data(); track issue.id) {
         <!-- <pre>{{ issuesQuery.data() | json }}</pre> -->
-         <issue-item [issue]="issue" />
+        <issue-item [issue]="issue" />
       } @empty {
         <div>No hay issues que mostrar</div>
       }
