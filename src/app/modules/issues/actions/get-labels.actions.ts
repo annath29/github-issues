@@ -7,7 +7,7 @@ const GITHUB_TOKEN = environment.gitHUbToken;
 
 export const getLabels = async (): Promise<GitHubLabel[]> => {
   // console.log("get issue by number called")
-  await sleep(1500);
+  // await sleep(1500);
   try {
     const resp = await fetch(`${BASE_URL}`, {
       headers: {
