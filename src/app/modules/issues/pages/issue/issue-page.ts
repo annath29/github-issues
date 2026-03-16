@@ -25,5 +25,4 @@ export default class IssuePage {
 
   public issueQuery = this.issueServices.issueQuery;
 
-  public commentsQuery = this.issueServices.commentsQuery;
-}
+  public commentsQuery = this.issueServices.issueCommentsQuery;}
